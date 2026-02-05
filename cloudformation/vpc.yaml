@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: VPC for Roles Service (ECS + RDS)
 
 Resources:
-  rRolesVPC:
+  rVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
@@ -10,7 +10,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: roles-vpc
+          Value: vpc-dev
 
   rInternetGateway:
     Type: AWS::EC2::InternetGateway
@@ -18,13 +18,13 @@ Resources:
   rAttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       InternetGatewayId: !Ref rInternetGateway
 
   rPublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       Tags:
         - Key: Name
           Value: roles-public-route
@@ -53,7 +53,7 @@ Resources:
   rPublicSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: us-east-1a
       MapPublicIpOnLaunch: true
@@ -64,7 +64,7 @@ Resources:
   rPublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       CidrBlock: 10.0.2.0/24
       AvailabilityZone: us-east-1b
       MapPublicIpOnLaunch: true
@@ -75,7 +75,7 @@ Resources:
   rPrivateSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       CidrBlock: 10.0.3.0/24
       AvailabilityZone: us-east-1a
       Tags:
@@ -85,7 +85,7 @@ Resources:
   rPrivateSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref rRolesVPC
+      VpcId: !Ref rVPC
       CidrBlock: 10.0.4.0/24
       AvailabilityZone: us-east-1b
       Tags:
@@ -93,18 +93,27 @@ Resources:
           Value: PrivateSubnet2
 
 Outputs:
-
   oVpcId:
-    Value: !Ref rRolesVPC
+    Value: !Ref rVPC
+    Export:
+      Name: rVPC
 
   oPublicSubnet1:
     Value: !Ref rPublicSubnet1
+    Export:
+      Name: rVPC
 
   oPublicSubnet2:
     Value: !Ref rPublicSubnet2
+    Export:
+      Name: rPublicSubnet2
 
   oPrivateSubnet1:
     Value: !Ref rPrivateSubnet1
+    Export:
+      Name: rPrivateSubnet1
 
   oPrivateSubnet2:
     Value: !Ref rPrivateSubnet2
+    Export:
+      Name: rPrivateSubnet2

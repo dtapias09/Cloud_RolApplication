@@ -26,7 +26,7 @@ Resources:
     Properties:
       Name: !Ref pClusterName
       Version: "1.29"
-      RoleArn: !GetAtt EKSClusterRole.Arn
+      RoleArn: !GetAtt rEKSClusterRole.Arn
       ResourcesVpcConfig:
         SubnetIds:
           - !ImportValue rPublicSubnetA
@@ -37,8 +37,8 @@ Resources:
 Outputs:
   oClusterName:
     Description: Nombre del cluster EKS
-    Value: !Ref rEksCluster
+    Value: !Ref rEKSCluster
 
   oClusterArn:
     Description: ARN del cluster
-    Value: !GetAtt rEksCluster.Arn
+    Value: !GetAtt rEKSCluster.Arn
