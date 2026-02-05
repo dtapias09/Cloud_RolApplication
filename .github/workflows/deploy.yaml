@@ -35,7 +35,7 @@ jobs:
             --capabilities CAPABILITY_NAMED_IAM
 
       - name: Deploy RDS Stack
-        if: ${{ github.event.inputs.environment == 'dev' }}
+        if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
             --template-file cloudformation/rds.yaml \
