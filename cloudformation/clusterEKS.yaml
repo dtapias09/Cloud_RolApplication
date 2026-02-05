@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EKS Cluster Stack
+
+Parameters:
+  pClusterName:
+    Type: String
+    Default: cluster-eks-dev
+
+  pVpcId:
+    Type: AWS::EC2::VPC::Id
+
+  pSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+
+Resources:
+  rEKSClusterRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ClusterName}-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: eks.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+
+  rEKSCluster:
+    Type: AWS::EKS::Cluster
+    Properties:
+      Name: !Ref pClusterName
+      Version: "1.29"
+      RoleArn: !GetAtt EKSClusterRole.Arn
+      ResourcesVpcConfig:
+        SubnetIds:
+          - !ImportValue rPublicSubnetA
+          - !ImportValue rPublicSubnetB
+        EndpointPublicAccess: true
+        EndpointPrivateAccess: false
+
+Outputs:
+  oClusterName:
+    Description: Nombre del cluster EKS
+    Value: !Ref rEksCluster
+
+  oClusterArn:
+    Description: ARN del cluster
+    Value: !GetAtt rEksCluster.Arn

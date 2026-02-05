@@ -94,17 +94,17 @@ Resources:
 
 Outputs:
 
-  VpcId:
+  oVpcId:
     Value: !Ref rRolesVPC
 
-  PublicSubnet1:
+  oPublicSubnet1:
     Value: !Ref rPublicSubnet1
 
-  PublicSubnet2:
+  oPublicSubnet2:
     Value: !Ref rPublicSubnet2
 
-  PrivateSubnet1:
+  oPrivateSubnet1:
     Value: !Ref rPrivateSubnet1
 
-  PrivateSubnet2:
+  oPrivateSubnet2:
     Value: !Ref rPrivateSubnet2

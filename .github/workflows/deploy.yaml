@@ -44,3 +44,11 @@ jobs:
             pDBUsername=${{ vars.DB_USERNAME }} \
             pDBPassword=${{ secrets.DB_PASSWORD }} \
             --capabilities CAPABILITY_NAMED_IAM
+
+      - name: Deploy Cluster-EKS Stack
+        if: ${{ github.event.inputs.environment == 'true' }}
+        run: |
+          aws cloudformation deploy \
+            --template-file cloudformation/eks-cluster.yaml \
+            --stack-name roles-cluster-eks-stack-dev \
+            --capabilities CAPABILITY_NAMED_IAM
