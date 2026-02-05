@@ -47,7 +47,7 @@ Resources:
       DBSubnetGroupName: !Ref rDBSubnetGroup
       VPCSecurityGroups:
         - !Ref rDBSecurityGroup
-      PubliclyAccessible: false
+      PubliclyAccessible: true
       MultiAZ: false
       StorageType: gp2
       BackupRetentionPeriod: 0
