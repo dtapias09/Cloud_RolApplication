@@ -23,11 +23,11 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::2799-8143-2284:role/GitHub_Cloud_IaC_Rol
+          role-to-assume: arn:aws:iam::279981432284:role/GitHub_Cloud_IaC_Rol
           aws-region: us-east-1
 
       - name: Deploy VPC Stack
-        if: ${{ github.event.inputs.dev == 'true' }}
+        if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
             --template-file cloudformation/vpc.yaml \
