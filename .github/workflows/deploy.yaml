@@ -49,6 +49,6 @@ jobs:
         if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
-            --template-file cloudformation/eks-cluster.yaml \
+            --template-file cloudformation/cluster-eks.yaml \
             --stack-name roles-cluster-eks-stack-dev \
             --capabilities CAPABILITY_NAMED_IAM
