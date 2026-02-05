@@ -28,9 +28,9 @@ Resources:
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: us-east-1a
       MapPublicIpOnLaunch: true
-    Tags:
-      - Key: Name
-        Value: PublicSubnet1
+      Tags:
+        - Key: Name
+          Value: PublicSubnet1
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
@@ -39,9 +39,9 @@ Resources:
       CidrBlock: 10.0.2.0/24
       AvailabilityZone: us-east-1b
       MapPublicIpOnLaunch: true
-    Tags:
-      - Key: Name
-        Value: PublicSubnet2
+      Tags:
+        - Key: Name
+          Value: PublicSubnet2
 
   PrivateSubnet1:
     Type: AWS::EC2::Subnet
@@ -49,9 +49,9 @@ Resources:
       VpcId: !Ref RolesVPC
       CidrBlock: 10.0.3.0/24
       AvailabilityZone: us-east-1a
-    Tags:
-      - Key: Name
-        Value: PrivateSubnet1
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet1
 
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
@@ -59,9 +59,9 @@ Resources:
       VpcId: !Ref RolesVPC
       CidrBlock: 10.0.4.0/24
       AvailabilityZone: us-east-1b
-    Tags:
-      - Key: Name
-        Value: PrivateSubnet2
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet2
 
 Outputs:
 
