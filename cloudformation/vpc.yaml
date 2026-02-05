@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: VPC for Roles Service (ECS + RDS)
+Description: VPC for Roles Service (EKS + RDS)
 
 Resources:
   rVPC:
