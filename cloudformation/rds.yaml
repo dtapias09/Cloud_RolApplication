@@ -40,7 +40,6 @@ Resources:
     Properties:
       DBInstanceIdentifier: roles-dev-postgres
       Engine: postgres
-      EngineVersion: "15.4"
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
       MasterUsername: !Ref pDBUsername
