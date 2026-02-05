@@ -21,8 +21,7 @@ Parameters:
     NoEcho: true
 
 Resources:
-
-  RDSSecurityGroup:
+  DBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow PostgreSQL access
@@ -48,7 +47,7 @@ Resources:
       MasterUserPassword: !Ref DBPassword
       DBSubnetGroupName: !Ref RDSSubnetGroup
       VPCSecurityGroups:
-        - !Ref RDSSecurityGroup
+        - !Ref DBSecurityGroup
       PubliclyAccessible: false
       MultiAZ: false
       StorageType: gp2

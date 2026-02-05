@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: VPC for Roles Service (ECS + RDS)
 
 Resources:
-
   RolesVPC:
     Type: AWS::EC2::VPC
     Properties:
