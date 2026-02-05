@@ -10,7 +10,7 @@ Resources:
   rEKSClusterRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub "${ClusterName}-role"
+      RoleName: !Sub "${pClusterName}-role"
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
