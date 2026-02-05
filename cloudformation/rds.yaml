@@ -29,8 +29,8 @@ Resources:
     Properties:
       DBSubnetGroupDescription: Subnets for RDS
       SubnetIds:
-        - !ImportValue rPublicSubnetA
-        - !ImportValue rPublicSubnetB
+        - !ImportValue rPublicSubnet1
+        - !ImportValue rPublicSubnet2
       Tags:
         - Key: Name
           Value: roles-dev-db-subnet-group
