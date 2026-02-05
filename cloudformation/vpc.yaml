@@ -101,7 +101,7 @@ Outputs:
   oPublicSubnet1:
     Value: !Ref rPublicSubnet1
     Export:
-      Name: rVPC
+      Name: rPublicSubnet1
 
   oPublicSubnet2:
     Value: !Ref rPublicSubnet2
