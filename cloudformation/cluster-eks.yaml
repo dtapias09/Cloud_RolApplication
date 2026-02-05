@@ -6,12 +6,6 @@ Parameters:
     Type: String
     Default: cluster-eks-dev
 
-  pVpcId:
-    Type: AWS::EC2::VPC::Id
-
-  pSubnetIds:
-    Type: List<AWS::EC2::Subnet::Id>
-
 Resources:
   rEKSClusterRole:
     Type: AWS::IAM::Role
