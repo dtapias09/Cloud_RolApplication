@@ -19,7 +19,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 5432
           ToPort: 5432
-          CidrIp: 10.0.0.0/16
+          CidrIp: 181.235.17.205/32
       Tags:
         - Key: Name
           Value: roles-dev-rds-sg
