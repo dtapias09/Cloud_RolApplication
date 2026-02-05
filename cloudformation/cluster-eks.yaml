@@ -4,7 +4,7 @@ Description: EKS Cluster Stack
 Parameters:
   pClusterName:
     Type: String
-    name: cluster-eks-dev
+    Default: cluster-eks-dev
 
 Resources:
   rEKSClusterRole:
