@@ -14,7 +14,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow PostgreSQL access
-      VpcId: vpc-0a9459de39ac57aaa
+      VpcId: vpc-0e7b11a12faa59997
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 5432
@@ -29,8 +29,8 @@ Resources:
     Properties:
       DBSubnetGroupDescription: Subnets for RDS
       SubnetIds:
-        - subnet-05f686aba946cbc99
-        - subnet-0938fad21d7c6a238
+        - subnet-0424aaa48e3b9e555
+        - subnet-049e52959fa53e91f
       Tags:
         - Key: Name
           Value: roles-dev-db-subnet-group
@@ -43,8 +43,8 @@ Resources:
       EngineVersion: "15.4"
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
-      MasterUsername: !Ref rDBUsername
-      MasterUserPassword: !Ref rDBPassword
+      MasterUsername: !Ref pDBUsername
+      MasterUserPassword: !Ref pDBPassword
       DBSubnetGroupName: !Ref rDBSubnetGroup
       VPCSecurityGroups:
         - !Ref rDBSecurityGroup
