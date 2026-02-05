@@ -38,7 +38,7 @@ Resources:
   rPostgreSQLDB:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: roles-dev-postgres
+      DBInstanceIdentifier: rds-rol-app-dev
       Engine: postgres
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
