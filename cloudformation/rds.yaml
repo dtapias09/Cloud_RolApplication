@@ -1,63 +1,57 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: RDS PostgreSQL for Roles App
+Description: RDS PostgreSQL for Roles Application
 
 Parameters:
-
-  VpcId:
+  pDBUsername:
     Type: String
 
-  PrivateSubnet1:
-    Type: String
-
-  PrivateSubnet2:
-    Type: String
-
-  DBUsername:
-    Type: String
-    Default: postgres
-
-  DBPassword:
+  pDBPasswordDB:
     Type: String
     NoEcho: true
 
 Resources:
-  DBSecurityGroup:
+  rDBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow PostgreSQL access
-      VpcId: !Ref VpcId
+      VpcId: vpc-0a9459de39ac57aaa
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: roles-dev-rds-sg
 
-  RDSSubnetGroup:
+  rDBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupDescription: Subnet group for RDS
+      DBSubnetGroupDescription: Subnets for RDS
       SubnetIds:
-        - !Ref PrivateSubnet1
-        - !Ref PrivateSubnet2
+        - subnet-05f686aba946cbc99
+        - subnet-0938fad21d7c6a238
+      Tags:
+        - Key: Name
+          Value: roles-dev-db-subnet-group
 
-  PostgresDB:
+  rPostgreSQLDB:
     Type: AWS::RDS::DBInstance
     Properties:
-      DBInstanceIdentifier: roles-db
+      DBInstanceIdentifier: roles-dev-postgres
       Engine: postgres
       EngineVersion: "15.4"
       DBInstanceClass: db.t3.micro
       AllocatedStorage: 20
-      MasterUsername: !Ref DBUsername
-      MasterUserPassword: !Ref DBPassword
-      DBSubnetGroupName: !Ref RDSSubnetGroup
+      MasterUsername: !Ref rDBUsername
+      MasterUserPassword: !Ref rDBPassword
+      DBSubnetGroupName: !Ref rDBSubnetGroup
       VPCSecurityGroups:
-        - !Ref DBSecurityGroup
+        - !Ref rDBSecurityGroup
       PubliclyAccessible: false
       MultiAZ: false
       StorageType: gp2
       BackupRetentionPeriod: 0
-      DeletionProtection: false
-
-Outputs:
-
-  DBEndpoint:
-    Value: !GetAtt PostgresDB.Endpoint.Address
-
-  DBPort:
-    Value: !GetAtt PostgresDB.Endpoint.Port
+      Tags:
+        - Key: Name
+          Value: roles-dev-postgres

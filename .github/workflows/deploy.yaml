@@ -33,3 +33,14 @@ jobs:
             --template-file cloudformation/vpc.yaml \
             --stack-name roles-vpc-stack \
             --capabilities CAPABILITY_NAMED_IAM
+
+      - name: Deploy RDS Stack
+        if: ${{ github.event.inputs.environment == 'dev' }}
+        run: |
+          aws cloudformation deploy \
+            --template-file cloudformation/rds.yaml \
+            --stack-name roles-rds-stack \
+            --parameter-overrides \
+            pDBUsername=${{ vars.DB_USERNAME }} \
+            pDBPassword=${{ secrets.DB_PASSWORD }} \
+            --capabilities CAPABILITY_NAMED_IAM
