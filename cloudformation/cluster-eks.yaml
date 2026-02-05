@@ -29,8 +29,8 @@ Resources:
       RoleArn: !GetAtt rEKSClusterRole.Arn
       ResourcesVpcConfig:
         SubnetIds:
-          - !ImportValue rPublicSubnetA
-          - !ImportValue rPublicSubnetB
+          - !ImportValue rPublicSubnet1
+          - !ImportValue rPublicSubnet2
         EndpointPublicAccess: true
         EndpointPrivateAccess: false
 
