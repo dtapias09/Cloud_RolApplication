@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: VPC for Roles Service (ECS + RDS)
 
 Resources:
-  RolesVPC:
+  rRolesVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 10.0.0.0/16
@@ -12,19 +12,48 @@ Resources:
         - Key: Name
           Value: roles-vpc
 
-  InternetGateway:
+  rInternetGateway:
     Type: AWS::EC2::InternetGateway
 
-  AttachGateway:
+  rAttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
-      VpcId: !Ref RolesVPC
-      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref rRolesVPC
+      InternetGatewayId: !Ref rInternetGateway
 
-  PublicSubnet1:
+  rPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref rRolesVPC
+      Tags:
+        - Key: Name
+          Value: roles-public-route
+
+
+  rDefaultPublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: rAttachGateway
+    Properties:
+      RouteTableId: !Ref rPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref rInternetGateway
+
+  rPublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref rPublicSubnet1
+      RouteTableId: !Ref rPublicRouteTable
+
+  rPublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref rPublicSubnet2
+      RouteTableId: !Ref rPublicRouteTable
+
+  rPublicSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref RolesVPC
+      VpcId: !Ref rRolesVPC
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: us-east-1a
       MapPublicIpOnLaunch: true
@@ -32,10 +61,10 @@ Resources:
         - Key: Name
           Value: PublicSubnet1
 
-  PublicSubnet2:
+  rPublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref RolesVPC
+      VpcId: !Ref rRolesVPC
       CidrBlock: 10.0.2.0/24
       AvailabilityZone: us-east-1b
       MapPublicIpOnLaunch: true
@@ -43,20 +72,20 @@ Resources:
         - Key: Name
           Value: PublicSubnet2
 
-  PrivateSubnet1:
+  rPrivateSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref RolesVPC
+      VpcId: !Ref rRolesVPC
       CidrBlock: 10.0.3.0/24
       AvailabilityZone: us-east-1a
       Tags:
         - Key: Name
           Value: PrivateSubnet1
 
-  PrivateSubnet2:
+  rPrivateSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref RolesVPC
+      VpcId: !Ref rRolesVPC
       CidrBlock: 10.0.4.0/24
       AvailabilityZone: us-east-1b
       Tags:
@@ -66,16 +95,16 @@ Resources:
 Outputs:
 
   VpcId:
-    Value: !Ref RolesVPC
+    Value: !Ref rRolesVPC
 
   PublicSubnet1:
-    Value: !Ref PublicSubnet1
+    Value: !Ref rPublicSubnet1
 
   PublicSubnet2:
-    Value: !Ref PublicSubnet2
+    Value: !Ref rPublicSubnet2
 
   PrivateSubnet1:
-    Value: !Ref PrivateSubnet1
+    Value: !Ref rPrivateSubnet1
 
   PrivateSubnet2:
-    Value: !Ref PrivateSubnet2
+    Value: !Ref rPrivateSubnet2

@@ -29,8 +29,8 @@ Resources:
     Properties:
       DBSubnetGroupDescription: Subnets for RDS
       SubnetIds:
-        - subnet-0424aaa48e3b9e555
-        - subnet-049e52959fa53e91f
+        - subnet-064210fa0ca8042e6 #subnetspublica1
+        - subnet-0f975990de02d7c94 #subnetspublica2
       Tags:
         - Key: Name
           Value: roles-dev-db-subnet-group
