@@ -1,9 +1,12 @@
 name: Deploy Infrastructure
 
 on:
-  push:
-    branches:
-      - feature/vpc
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy IaC"
+        required: true
+        default: "dev"
 
 permissions:
   id-token: write
@@ -24,6 +27,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy VPC Stack
+        if: ${{ github.event.inputs.dev == 'true' }}
         run: |
           aws cloudformation deploy \
             --template-file cloudformation/vpc.yaml \
