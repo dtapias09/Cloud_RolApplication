@@ -4,7 +4,7 @@ Description: EKS Cluster Stack
 Parameters:
   pClusterName:
     Type: String
-    Default: cluster-eks-dev
+    name: cluster-eks-dev
 
 Resources:
   rEKSClusterRole:
@@ -36,9 +36,9 @@ Resources:
 
 Outputs:
   oClusterName:
-    Description: Nombre del cluster EKS
+    Description: name cluster EKS
     Value: !Ref rEKSCluster
 
   oClusterArn:
-    Description: ARN del cluster
+    Description: ARN cluster
     Value: !GetAtt rEKSCluster.Arn
