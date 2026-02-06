@@ -21,6 +21,9 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
 
+      AccessConfig:
+        AuthenticationMode: API_AND_CONFIG_MAP
+
   rEKSCluster:
     Type: AWS::EKS::Cluster
     Properties:

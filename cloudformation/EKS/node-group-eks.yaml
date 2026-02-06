@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EKS Node Group Stack - Public Subnets
+
+Parameters:
+  pClusterName:
+    Type: String
+    Default: !ImportValue
+
+Resources:
+  rNodeInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${pClusterName}-node-rol"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+
+  rNodeGroup:
+    Type: AWS::EKS::Nodegroup
+    Properties:
+      ClusterName: !Ref pClusterName
+      NodegroupName: !Sub "${pClusterName}-nodegroup-public"
+      NodeRole: !GetAtt rNodeInstanceRole.Arn
+      Subnets:
+        - !ImportValue rPublicSubnet1
+        - !ImportValue rPublicSubnet2
+      ScalingConfig:
+        DesiredSize: 2
+        MinSize: 1
+        MaxSize: 3
+      InstanceTypes:
+        - t3.medium
+      AmiType: AL2_x86_64
+      CapacityType: ON_DEMAND

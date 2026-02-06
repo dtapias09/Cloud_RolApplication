@@ -26,7 +26,7 @@ jobs:
           role-to-assume: arn:aws:iam::279981432284:role/GitHub_Cloud_IaC_Rol
           aws-region: us-east-1
 
-      - name: Deploy VPC Stack
+      - name: Deploy VPC-Stack
         if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
@@ -34,7 +34,7 @@ jobs:
             --stack-name roles-vpc-dev-stack \
             --capabilities CAPABILITY_NAMED_IAM
 
-      - name: Deploy RDS Stack
+      - name: Deploy RDS-Stack
         if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
@@ -45,10 +45,18 @@ jobs:
             pDBPassword=${{ secrets.DB_PASSWORD }} \
             --capabilities CAPABILITY_NAMED_IAM
 
-      - name: Deploy Cluster-EKS Stack
+      - name: Deploy Cluster-EKS-Stack
         if: ${{ github.event.inputs.environment == 'true' }}
         run: |
           aws cloudformation deploy \
-            --template-file cloudformation/cluster-eks.yaml \
+            --template-file cloudformation/EKS/cluster-eks.yaml \
             --stack-name roles-cluster-eks-stack-dev \
+            --capabilities CAPABILITY_NAMED_IAM
+
+      - name: Deploy nodegroup-EKS-Stack
+        if: ${{ github.event.inputs.environment == 'true' }}
+        run: |
+          aws cloudformation deploy \
+            --template-file eks-nodegroup-public.yaml \
+            --stack-name eks-nodegroup-public \
             --capabilities CAPABILITY_NAMED_IAM
