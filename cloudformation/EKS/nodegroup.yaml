@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: EKS Node Group Stack - Public Subnets
+Description: EKS Node Group Stack
 
 Parameters:
   pClusterName:
     Type: String
-    Default: !ImportValue rEKSCluster
+    Default: cluster-eks-dev
 
 Resources:
   rNodeInstanceRole:
@@ -27,7 +27,7 @@ Resources:
     Type: AWS::EKS::Nodegroup
     Properties:
       ClusterName: !Ref pClusterName
-      NodegroupName: !Sub "${pClusterName}-nodegroup-public"
+      NodegroupName: !Sub "${ClusterName}-nodegroup-eks"
       NodeRole: !GetAtt rNodeInstanceRole.Arn
       Subnets:
         - !ImportValue rPublicSubnet1
