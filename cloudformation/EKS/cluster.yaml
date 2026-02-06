@@ -33,6 +33,15 @@ Resources:
           - !ImportValue rPublicSubnet2
         EndpointPublicAccess: true
         EndpointPrivateAccess: false
+        #Habilitamos logs de cloudwatchs acerca el Cluster-EKS
+    Logging:
+      ClusterLogging:
+        EnabledTypes:
+          - Type: api
+          - Type: audit
+          - Type: authenticator
+          - Type: controllerManager
+          - Type: scheduler
 
 Outputs:
   oClusterName:

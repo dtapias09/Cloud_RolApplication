@@ -35,6 +35,17 @@ Resources:
         - Key: Name
           Value: roles-dev-db-subnet-group
 
+  rPostgresParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: Custom Postgres logging parameter group
+      Family: postgres17
+      Parameters:
+        log_statement: all
+        log_min_duration_statement: 2000
+        log_connections: 1
+        log_disconnections: 1
+
   rPostgreSQLDB:
     Type: AWS::RDS::DBInstance
     Properties:
@@ -51,6 +62,10 @@ Resources:
       MultiAZ: false
       StorageType: gp2
       BackupRetentionPeriod: 0
+      EnableCloudwatchLogsExports:
+        - postgresql
+        - upgrade
+      DBParameterGroupName: !Ref rPostgresParameterGroup
       Tags:
         - Key: Name
           Value: roles-dev-postgres
