@@ -27,7 +27,7 @@ Resources:
     Type: AWS::EKS::Nodegroup
     Properties:
       ClusterName: !Ref pClusterName
-      NodegroupName: !Sub "${ClusterName}-nodegroup-eks"
+      NodegroupName: !Sub "${pClusterName}-nodegroup-eks"
       NodeRole: !GetAtt rNodeInstanceRole.Arn
       Subnets:
         - !ImportValue rPublicSubnet1
