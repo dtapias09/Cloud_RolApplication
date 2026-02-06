@@ -39,4 +39,4 @@ Resources:
       InstanceTypes:
         - t3.medium
       AmiType: AL2_x86_64
-      CapacityType: SPOT
+      CapacityType: ON_DEMAND
