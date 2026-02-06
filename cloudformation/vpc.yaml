@@ -29,7 +29,6 @@ Resources:
         - Key: Name
           Value: roles-public-route
 
-
   rDefaultPublicRoute:
     Type: AWS::EC2::Route
     DependsOn: rAttachGateway
