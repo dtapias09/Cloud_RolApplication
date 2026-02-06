@@ -4,7 +4,7 @@ Description: EKS Node Group Stack - Public Subnets
 Parameters:
   pClusterName:
     Type: String
-    Default: !ImportValue
+    Default: !ImportValue rEKSCluster
 
 Resources:
   rNodeInstanceRole:
